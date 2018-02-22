@@ -5,10 +5,12 @@ import scala.collection.mutable
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
-class Repository {
+class Repository(cookies: mutable.ArrayBuffer[Cookie]) {
   import Repository._
 
-  def getAll: JsValue = { ???
+  def getAll: JsValue = {
+    val cookieList = cookies.toList
+    Json.toJson(cookieList)
   }
 
   def create(name: String): Int = {
@@ -24,8 +26,7 @@ class Repository {
 }
 
 object Repository {
-  private var cookies: mutable.ArrayBuffer[Cookie] = mutable.ArrayBuffer.empty
-  def apply: Repository = new Repository
+  def apply: Repository = new Repository(mutable.ArrayBuffer.empty)
 
   implicit val inventoryWrites: Writes[Inventory] = (
     (JsPath \ "jelly").write[Int] and
