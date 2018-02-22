@@ -1,4 +1,4 @@
-package Model
+package data
 
 case class Cookie(name: String, level: Int, inventory: Inventory, wallet: Wallet)
 
