@@ -30,20 +30,20 @@ class Repository(cookies: mutable.ArrayBuffer[Cookie]) {
     }
   }
 
-  def updateCookie(name: String): UpdateResult = {
-    ???
-    /*
-    val jsonOption: Option[JsValue] = request.body.asJson
-    jsonOption.map {
-      json =>
-        json.validate[Cookie] match {
-          case s: JsSuccess[Cookie] => Ok("updated!" + s.get)
-          case _: JsError => BadRequest("not a json for cookie: " + request.body)
-        }
-    }.getOrElse {
-      BadRequest("no json is sent")
+  def parseCookieJson(jsValue: JsValue): ParsingResult = {
+    jsValue.validate[Cookie] match {
+      case s: JsSuccess[Cookie] => ParsingSuccess(s.get)
+      case _: JsError => ParsingFail
     }
-     */
+  }
+
+  def updateCookie(cookie: Cookie): UpdateResult = {
+    val idx = getCookieIndex(cookie.name)
+    if (idx == -1) CookieUpdateFail("cookie name $cookie.name does not exist")
+    else {
+      cookies(idx) = cookie
+      CookieUpdateSuccess
+    }
   }
 
 

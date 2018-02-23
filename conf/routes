@@ -12,9 +12,7 @@ GET     /cookie/:id                 presentation.controllers.CookieController.ge
 
 POST    /cookie/:id                 presentation.controllers.CookieController.createCookie(id: String)
 
-#PUT     /cookie/:id                 presentation.controllers.CookieController.updateCookie(id: String)
-# PUT     /cookie/inventory/:id       controllers.CookieController.updateInventory(id: String)
-# PUT     /cookie/wallet/:id          controllers.CookieController.updateWallet(id: String)
+PUT     /cookie                     presentation.controllers.CookieController.updateCookie
 
 #GET     /assets/*file               presentation.controllers.Assets.versioned(path="/public", file: Asset)
 
